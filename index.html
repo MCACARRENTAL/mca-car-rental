@@ -1,156 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MCA Car Rental - Booking</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f9;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-    header {
-      background: #1a237e;
-      color: #fff;
-      padding: 30px 20px;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-    header p {
-      margin-top: 8px;
-      font-size: 1.1rem;
-    }
-    main {
-      max-width: 600px;
-      margin: 30px auto;
-      background: #fff;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    h2 {
-      text-align: center;
-      color: #1a237e;
-      margin-bottom: 20px;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-    label {
-      font-weight: bold;
-    }
-    input {
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 16px;
-      width: 100%;
-    }
-    button {
-      background: #1a237e;
-      color: white;
-      padding: 14px;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background: #0e1a5b;
-    }
-    #responseMessage {
-      text-align: center;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-    footer {
-      text-align: center;
-      background: #1a237e;
-      color: #fff;
-      padding: 20px;
-      margin-top: 30px;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>MCA Car Rental - Bulacan</h1>
-    <p>Book your Mitsubishi Mirage G4 easily</p>
-  </header>
+<html>
+  <head>
+    <title>MCA CAR RENTAL</title>
+    <style>
+      body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; background: #f8f9fa; }
+      h1 { text-align: center; color: #007BFF; }
+      p { text-align: center; font-size: 16px; }
+      label { display: block; margin-top: 10px; font-weight: bold; }
+      input, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
+      button { margin-top: 15px; padding: 12px; width: 100%; background: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+      button:hover { background: #0056b3; }
+      #response { text-align: center; margin-top: 20px; font-weight: bold; color: green; }
+    </style>
+  </head>
+  <body>
+    <h1>MCA CAR RENTAL</h1>
+    <p><b>Available Car:</b> Mitsubishi Mirage G4</p>
 
-  <main>
-    <h2>Book Your Ride</h2>
     <form id="bookingForm">
-      <div>
-        <label for="full_name">Full Name:</label>
-        <input type="text" id="full_name" name="full_name" placeholder="Enter your full name" required>
-      </div>
-      <div>
-        <label for="contact">Contact Number:</label>
-        <input type="text" id="contact" name="contact" placeholder="Enter contact number" required>
-      </div>
-      <div>
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" required>
-      </div>
-      <div>
-        <label for="start_date">Start Date:</label>
-        <input type="date" id="start_date" name="start_date" required>
-      </div>
-      <div>
-        <label for="start_time">Start Time:</label>
-        <input type="time" id="start_time" name="start_time" required>
-      </div>
-      <div>
-        <label for="end_date">End Date:</label>
-        <input type="date" id="end_date" name="end_date" required>
-      </div>
-      <div>
-        <label for="end_time">End Time:</label>
-        <input type="time" id="end_time" name="end_time" required>
-      </div>
-      <button type="submit">Confirm Booking</button>
+      <label>Full Name</label>
+      <input type="text" id="name" required>
+      
+      <label>Contact Number</label>
+      <input type="text" id="contact" required>
+
+      <label>Delivery or Pickup</label>
+      <select id="option" required>
+        <option value="Delivery">Delivery</option>
+        <option value="Pickup">Pickup</option>
+      </select>
+      
+      <label>Start Date & Time</label>
+      <input type="datetime-local" id="start" required>
+      
+      <label>End Date & Time</label>
+      <input type="datetime-local" id="end" required>
+      
+      <button type="submit">Book Now</button>
     </form>
 
-    <p id="responseMessage"></p>
-  </main>
+    <p id="response"></p>
 
-  <footer>
-    <p>&copy; 2025 MCA Car Rental - Bulacan. All Rights Reserved.</p>
-  </footer>
-
-  <script>
-    const form = document.getElementById("bookingForm");
-    const responseMessage = document.getElementById("responseMessage");
-
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      fetch("https://script.google.com/macros/s/AKfycbys5QIzmv1OOezOD4g8kVGLfDXiC1IGVV1ggY0swXF-SFhPuyoaXAcdtYa9brvBzgNA/exec", {
-        method: "POST",
-        body: new FormData(form)
-      })
-      .then(res => res.text())
-      .then(data => {
-        responseMessage.style.color = "green";
-        responseMessage.innerText = "✅ Booking Successful! We’ll contact you soon.";
-        form.reset();
-      })
-      .catch(err => {
-        responseMessage.style.color = "red";
-        responseMessage.innerText = "❌ Something went wrong. Please try again.";
+    <script>
+      document.getElementById("bookingForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        fetch("https://script.google.com/macros/s/AKfycbwwIua2HW_MPpnyfw22scyhQuw23Pl4lZWHbq5vUjxxAn7n6XVgfvlrCOdwdfX8RW_M/exec", {
+          method: "POST",
+          body: JSON.stringify({
+            name: document.getElementById("name").value,
+            contact: document.getElementById("contact").value,
+            option: document.getElementById("option").value,
+            start: document.getElementById("start").value,
+            end: document.getElementById("end").value
+          })
+        }).then(res => res.text()).then(msg => {
+          document.getElementById("response").innerText = msg;
+          document.getElementById("bookingForm").reset();
+        });
       });
-    });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
-
