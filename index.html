@@ -1,116 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MCA Car Rental - Booking</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f9;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-    header {
-      background: #1a237e;
-      color: #fff;
-      padding: 30px 20px;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-    header p {
-      margin-top: 8px;
-      font-size: 1.1rem;
-    }
-    main {
-      max-width: 600px;
-      margin: 30px auto;
-      background: #fff;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    h2 {
-      text-align: center;
-      color: #1a237e;
-      margin-bottom: 20px;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-    label {
-      font-weight: bold;
-    }
-    input {
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 16px;
-    }
-    button {
-      background: #1a237e;
-      color: white;
-      padding: 14px;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background: #0e1a5b;
-    }
-    footer {
-      text-align: center;
-      background: #1a237e;
-      color: #fff;
-      padding: 20px;
-      margin-top: 30px;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>MCA Car Rental - Bulacan</h1>
-    <p>Book your Mitsubishi Mirage G4 easily</p>
-  </header>
+<form id="bookingForm">
+  <div>
+    <label for="full_name">Full Name:</label>
+    <input type="text" id="full_name" name="full_name" placeholder="Enter your full name" required>
+  </div>
+  <div>
+    <label for="contact">Contact Number:</label>
+    <input type="text" id="contact" name="contact" placeholder="Enter contact number" required>
+  </div>
+  <div>
+    <label for="email">Email Address:</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+  </div>
+  <div>
+    <label for="start_date">Start Date:</label>
+    <input type="date" id="start_date" name="start_date" required>
+  </div>
+  <div>
+    <label for="start_time">Start Time:</label>
+    <input type="time" id="start_time" name="start_time" required>
+  </div>
+  <div>
+    <label for="end_date">End Date:</label>
+    <input type="date" id="end_date" name="end_date" required>
+  </div>
+  <div>
+    <label for="end_time">End Time:</label>
+    <input type="time" id="end_time" name="end_time" required>
+  </div>
+  <button type="submit">Confirm Booking</button>
+</form>
 
-  <main>
-    <h2>Book Your Ride</h2>
-    <form method="POST"
-      action="https://script.google.com/macros/s/AKfycbys5QIzmv1OOezOD4g8kVGLfDXiC1IGVV1ggY0swXF-SFhPuyoaXAcdtYa9brvBzgNA/exec">
-      <div>
-        <label for="full_name">Full Name:</label>
-        <input type="text" id="full_name" name="full_name" placeholder="Enter your full name" required>
-      </div>
-      <div>
-        <label for="contact">Contact Number:</label>
-        <input type="text" id="contact" name="contact" placeholder="Enter contact number" required>
-      </div>
-      <div>
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" required>
-      </div>
-      <div>
-        <label for="start_date">Start Date:</label>
-        <input type="date" id="start_date" name="start_date" required>
-      </div>
-      <div>
-        <label for="end_date">End Date:</label>
-        <input type="date" id="end_date" name="end_date" required>
-      </div>
-      <button type="submit">Confirm Booking</button>
-    </form>
-  </main>
+<p id="responseMessage" style="text-align:center; margin-top:20px; font-weight:bold; color:green;"></p>
 
-  <footer>
-    <p>&copy; 2025 MCA Car Rental - Bulacan. All Rights Reserved.</p>
-  </footer>
-</body>
-</html>
+<script>
+  const form = document.getElementById("bookingForm");
+  const responseMessage = document.getElementById("responseMessage");
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    fetch("https://script.google.com/macros/s/AKfycbys5QIzmv1OOezOD4g8kVGLfDXiC1IGVV1ggY0swXF-SFhPuyoaXAcdtYa9brvBzgNA/exec", {
+      method: "POST",
+      body: new FormData(form)
+    })
+    .then(res => res.text())
+    .then(data => {
+      responseMessage.innerText = "✅ Booking Successful! We’ll contact you soon.";
+      form.reset();
+    })
+    .catch(err => {
+      responseMessage.innerText = "❌ Something went wrong. Please try again.";
+    });
+  });
+</script>
+
